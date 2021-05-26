@@ -52,7 +52,7 @@
           <el-form-item label="图片" style="text-align: left">
             <el-upload
               class="upload-demo"
-              action="api/product/uploadImg"
+              action="product/uploadImg"
               :on-remove="handleRemove"
               :on-success="handleSuccess"
               :file-list="fileList"

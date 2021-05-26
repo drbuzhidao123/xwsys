@@ -10,7 +10,7 @@ import './assets/css/global.css';
 import './assets/css/icon.css';
 import * as echarts from "echarts";
 const app = createApp(App);
-axios.defaults.baseURL='api';
+axios.defaults.baseURL='http://www.xwsysapi.com/admin/';
 // 添加请求拦截器，在请求头中加token
 axios.interceptors.request.use(config => { 
         config.headers.Authorization = window.sessionStorage.getItem('token');
