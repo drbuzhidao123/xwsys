@@ -45,19 +45,11 @@
                 style="width: 100%"
               ></el-date-picker>
             </el-col>
-            <!--<el-col class="line" :span="2">-</el-col>
-            <el-col :span="11">
-              <el-time-picker
-                placeholder="选择时间"
-                v-model="form.date2"
-                style="width: 100%"
-              ></el-time-picker>
-            </el-col>-->
           </el-form-item>
           <el-form-item label="图片" style="text-align: left">
             <el-upload
               class="upload-demo"
-              action="product/uploadImg"
+              action="http://www.xwsysapi.com/admin/product/uploadImg"
               :on-remove="handleRemove"
               :on-success="handleSuccess"
               :file-list="fileList"
@@ -95,7 +87,6 @@
      <el-checkbox v-for="svalue in item.svalue"  @change="checkchange"  :label="svalue" :key="svalue" border>{{svalue.name}}</el-checkbox>
   </el-checkbox-group>
       </el-row>
-   
        <el-table v-if="skushow"
       :data="skuList"
       style="width: 100%">
@@ -130,8 +121,6 @@
             </el-tabs>
     </el-card>
       </transition>
-    <!--<button @click='syncHTML'>同步内容</button>
-    <div :innerHTML='content.html'></div>-->
   </div>
 </template>
 
@@ -179,7 +168,11 @@ export default {
 		  value: 'id',
 		  label: 'title',
       children:'children',
-	}
+	},
+      fileList: [{
+          name: '1.jpeg',
+          url: '',
+        }]
     };
   },
   created() {
@@ -271,6 +264,7 @@ export default {
           if (res.data.status == 1) {
             _this.form = res.data.result;
             tinyMCE.activeEditor.setContent(_this.form['content']);
+            _this.fileList[0]['url'] = _this.form.image;
           } else {
             _this.$message.error(res.data.message);
           }
@@ -335,9 +329,9 @@ export default {
 
     handleRemove(fileList) {
       this.form.image='';
-      //console.log(fileList);
     },
-    handleSuccess(response, fileList) {
+
+    handleSuccess(response,file,fileList) {
       if (response.status == 1) {
         this.$message.success({
           message: response.message,
@@ -352,21 +346,6 @@ export default {
     handleChange(event){
       this.form['cate_id'] = event[event.length-1];
   },
-
-    handleRemove(fileList) {
-      this.form.image='';
-    },
-    handleSuccess(response, fileList) {
-      if (response.status == 1) {
-        this.$message.success({
-          message: response.message,
-          type: "success",
-        });
-        this.form.image = response.result['url'];
-      } else {
-        this.$message.error(response.message);
-      }
-    },
 
   },
 };

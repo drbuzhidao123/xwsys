@@ -98,7 +98,7 @@ export default {
 
       xhr = new XMLHttpRequest();
       xhr.withCredentials = false;
-      xhr.open("POST", "api/product/editUpload");
+      xhr.open("POST", "http://www.xwsysapi.com/admin/product/editUpload");
       xhr.setRequestHeader('Authorization', window.sessionStorage.getItem("token"));
 
       xhr.upload.onprogress = function (e) {
